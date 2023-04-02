@@ -9,6 +9,7 @@ export default {
 			meals: [],
 			ingrediens: [],
 			reveal: false,
+			dialog: false,
 		};
 	},
 
@@ -28,6 +29,10 @@ export default {
 		getReveal(state) {
 			return state.reveal;
 		},
+
+		getError(state) {
+			return state.dialog;
+		},
 	},
 
 	mutations: {
@@ -37,7 +42,6 @@ export default {
 
 		MEAL_INFO(state, payload) {
 			const meal = payload.meals;
-			console.log(meal);
 			meal.forEach((a) => {
 				state.meals.push(a);
 			});
@@ -46,6 +50,14 @@ export default {
 
 		TOGGLE_REVEAL(state) {
 			state.reveal = !state.reveal;
+		},
+
+		ERROR(state) {
+			state.dialog = true;
+		},
+
+		CLOSE_DIALOG(state) {
+			state.dialog = false;
 		},
 	},
 
@@ -61,6 +73,7 @@ export default {
 				})
 				.catch(() => {
 					console.log("Greska");
+					context.commit("ERROR");
 					context.state.inputFind = "";
 				});
 		},

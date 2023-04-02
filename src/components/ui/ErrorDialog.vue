@@ -1,12 +1,12 @@
 <template>
 	<v-dialog v-model="dialog" width="auto">
-		<v-card>
+		<v-card color="oxfordBlue">
 			<v-card-text>
 				Something went wrong. <br />
 				Please fill all your inputs.
 			</v-card-text>
 			<v-card-actions>
-				<v-btn color="primary" block @click="closeDialog"
+				<v-btn color="bittersweet" block @click="closeDialog"
 					>Close</v-btn
 				>
 			</v-card-actions>

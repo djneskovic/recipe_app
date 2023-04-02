@@ -62,7 +62,9 @@
 					<v-btn :href="meal.strSource" v-if="meal.strSource"
 						>See here</v-btn
 					>
-					<p v-if="!meal.strSource">Sorry, no link found</p>
+					<p v-if="!meal.strSource" class="no-link">
+						Sorry, no link found
+					</p>
 				</div>
 			</v-card-text>
 			<v-card-actions>
@@ -170,5 +172,10 @@ export default {
 
 .box {
 	background-color: red;
+}
+
+.no-link {
+	color: #cdd7d6;
+	font-size: 1.25rem;
 }
 </style>

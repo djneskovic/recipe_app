@@ -6,9 +6,10 @@
 				<div class="favorite-input">
 					<explore-food class="input"></explore-food>
 				</div>
-				<v-btn @click="findFood">Find</v-btn>
+				<v-btn @click="findFood" class="btn-find">Find</v-btn>
 				<div class="find-food-list">
 					<find-food-card></find-food-card>
+					<the-error></the-error>
 				</div>
 			</div>
 		</div>
@@ -76,15 +77,48 @@ h1 {
 	padding: 0 2rem;
 	margin-top: 1rem;
 }
+
+.btn-find {
+	position: relative;
+	background-color: #102542;
+	border-radius: 5px;
+	background-repeat: no-repeat;
+	box-sizing: border-box;
+	color: #fff;
+	border: none;
+	font-size: 20px;
+	transition: all 0.3s ease-in-out;
+	z-index: 1;
+	overflow: hidden;
+}
+
+.btn-find::before {
+	content: "";
+	background-color: #f87060;
+	width: 0;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	transition: width 500ms ease-in-out;
+	display: inline-block;
+}
+
+.btn-find:hover::before {
+	width: 100%;
+}
 </style>
 
 <script>
 import ExploreFood from "../ui/ExploreFood.vue";
 import FindFoodCard from "../ui/FindFoodCard.vue";
+import TheError from "../ui/TheError.vue";
 export default {
 	components: {
 		ExploreFood,
 		FindFoodCard,
+		TheError,
 	},
 
 	methods: {
