@@ -1,38 +1,31 @@
 <template>
-	<v-card
-		v-for="food in getFavoritesFilter"
-		:key="food.id"
-		:name="food.name"
-		:ingridiens="food.ingridiens"
-		:description="food.description"
-		color="oxfordBlue"
-		class="text-khaki card"
-		width="400"
-	>
+	<v-card color="oxfordBlue" class="text-khaki card" width="400">
 		<v-card-title class="text-bittersweet font-weight-bold">
-			{{ food.name }}
+			{{ name }}
 		</v-card-title>
 
 		<v-card-actions>
-			<v-btn @click="removeFav(food.id)" class="btn-remove">
+			<v-btn @click="$emit('remove-fav')" class="btn-remove">
 				Delete
 			</v-btn>
 
 			<v-spacer></v-spacer>
 
 			<v-btn
-				:icon="food.show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-				@click="toggleShow(food.id)"
+				:icon="
+					getShow === id ? 'mdi-chevron-up' : 'mdi-chevron-down'
+				"
+				@click="$emit('toggle-list')"
 			></v-btn>
 		</v-card-actions>
 
 		<v-expand-transition>
-			<div v-if="food.show" class="pera">
+			<div v-if="getShow === id">
 				<v-divider></v-divider>
 
 				<v-list density="compact" class="list">
 					<v-list-item
-						v-for="ing in food.ingridiens"
+						v-for="ing in ings"
 						:key="ing"
 						width="100%"
 						class="list-item"
@@ -42,8 +35,9 @@
 				<v-divider></v-divider>
 
 				<v-card-text>
-					<span>Description:</span> <br />
-					{{ food.description }}
+					<span>Description: </span>
+					<br />
+					{{ desc }}
 				</v-card-text>
 			</div>
 		</v-expand-transition>
@@ -52,45 +46,18 @@
 
 <script>
 export default {
+	props: ["id", "name", "desc", "ings"],
+	emits: ["remove-fav", "toggle-list"],
+
 	computed: {
-		getFavorites() {
-			return this.$store.getters["favorites/getFoods"];
-		},
-
 		getShow() {
-			return this.$store.getters["addIngridiens/getShow"];
+			return this.$store.getters["favorites/getShow"];
 		},
-
-		getFavoritesFilter() {
-			return this.$store.getters["favorites/getFavoritesFilter"];
-		},
-	},
-
-	methods: {
-		getFood() {
-			this.$store.commit("favorites/GET_FOODS");
-		},
-
-		removeFav(id) {
-			this.$store.commit("favorites/REMOVE_FAV", id);
-		},
-
-		toggleShow(id) {
-			this.$store.commit("favorites/TOGGLE_SHOW", id);
-		},
-	},
-
-	created() {
-		this.getFood();
 	},
 };
 </script>
 
 <style scoped>
-.card {
-	position: relative;
-}
-
 span {
 	font-size: 1.25rem;
 	font-weight: bold;

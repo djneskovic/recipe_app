@@ -112,7 +112,6 @@ export default {
 		},
 
 		getShow(state) {
-			console.log(state.show);
 			return state.show;
 		},
 	},

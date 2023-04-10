@@ -8,7 +8,7 @@ export default {
 			inputFind: "",
 			meals: [],
 			ingrediens: [],
-			reveal: false,
+			reveal: null,
 			dialog: false,
 		};
 	},
@@ -48,8 +48,10 @@ export default {
 			state.inputFind = "";
 		},
 
-		TOGGLE_REVEAL(state) {
-			state.reveal = !state.reveal;
+		TOGGLE_REVEAL(state, payload) {
+			state.reveal === payload
+				? (state.reveal = null)
+				: (state.reveal = payload);
 		},
 
 		ERROR(state) {

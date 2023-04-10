@@ -80,12 +80,12 @@
 
 		<v-expand-transition>
 			<v-card
-				v-if="getReveal"
+				v-if="getReveal === meal.idMeal"
 				class="v-card--reveal"
 				style="min-height: 100%"
 				color="oxfordBlue"
 			>
-				<div class="pera">
+				<div>
 					<v-card-text class="pb-0">
 						<p
 							class="text-h5 text-khaki"
@@ -114,11 +114,6 @@
 
 <script>
 export default {
-	data: () => ({
-		reveal: false,
-		ings: [],
-	}),
-
 	computed: {
 		getMeals() {
 			return this.$store.getters["explore/getMeals"];
@@ -135,7 +130,6 @@ export default {
 
 	methods: {
 		toggleReveal(id) {
-			console.log(id);
 			this.$store.commit("explore/TOGGLE_REVEAL", id);
 		},
 	},

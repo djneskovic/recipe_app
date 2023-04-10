@@ -9,7 +9,16 @@
 				<favorite-input class="input"></favorite-input>
 			</div>
 			<div class="favorite">
-				<the-favorite></the-favorite>
+				<the-favorite
+					v-for="food in getFavoritesFilter"
+					:key="food.id"
+					:id="food.id"
+					:name="food.name"
+					:desc="food.description"
+					:ings="food.ingridiens"
+					@remove-fav="removeFav(food.id)"
+					@toggle-list="toggleShow(food.id)"
+				></the-favorite>
 			</div>
 		</div>
 	</div>
@@ -51,8 +60,6 @@
 	align-items: center;
 	max-width: 1400px;
 	margin: 0 auto 2rem;
-	/* overflow: hidden; */
-	/* min-height: 100vh; */
 }
 
 .favoriteInput {
@@ -74,7 +81,6 @@
 .input:focus {
 	background-color: white;
 	transform: scale(1.05);
-	/* box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff; */
 }
 </style>
 
@@ -96,10 +102,29 @@ export default {
 		getFavoriteFood() {
 			return this.$store.getters["addIngridiens/getFavoritesFood"];
 		},
+
+		getFavoritesFilter() {
+			return this.$store.getters["favorites/getFavoritesFilter"];
+		},
+	},
+
+	methods: {
+		getFoods() {
+			this.$store.commit("favorites/GET_FOODS");
+		},
+
+		removeFav(id) {
+			this.$store.commit("favorites/REMOVE_FAV", id);
+		},
+
+		toggleShow(id) {
+			this.$store.commit("favorites/TOGGLE", id);
+		},
 	},
 
 	created() {
 		this.getFavoriteFood;
+		this.getFoods();
 	},
 };
 </script>

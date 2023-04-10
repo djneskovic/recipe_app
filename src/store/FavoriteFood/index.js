@@ -6,6 +6,7 @@ export default {
 			favoritesFoods: [],
 			ing: [],
 			favoriteInput: "",
+			show: null,
 		};
 	},
 
@@ -28,12 +29,10 @@ export default {
 			);
 		},
 
-		TOGGLE_SHOW(state, payload) {
-			state.favoritesFoods.forEach((a) => {
-				if (a.id === payload) {
-					return (a.show = !a.show);
-				}
-			});
+		TOGGLE(state, payload) {
+			state.show === payload
+				? (state.show = null)
+				: (state.show = payload);
 		},
 
 		FAVORITE_FOOD_INPUT(state, payload) {
@@ -44,6 +43,10 @@ export default {
 	getters: {
 		getFavoriteInput(state) {
 			return state.favoriteInput;
+		},
+
+		getShow(state) {
+			return state.show;
 		},
 
 		getFavoritesFilter(state) {
